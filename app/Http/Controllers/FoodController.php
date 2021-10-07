@@ -11,16 +11,8 @@ class FoodController extends Controller
 {
     public function index(Request $request)
     {
-        // $foods = Food::paginate(10);
-        // return view('foods.index', compact('foods'));
-        // $name = $request->name;
         $category = $request->category;
 
-        // $query = Food::query();
-        // if (!empty($category)) {
-        //     $query->where('category', 'like', '%' . $category . '%');
-        // }
-        // $foods = $query->paginate(10);
         $params = $request->query();
         $foods = Food::search($params)->paginate(10);
         
@@ -42,7 +34,7 @@ class FoodController extends Controller
     {
         $categories = Category::all();
         $food = food::find($id);
-        return view('foods.edit',compact('categories'), ['food' => $food]);
+        return view('foods.edit',compact('categories', 'food'));
     }
     
     public function store(FoodRequest $request)
